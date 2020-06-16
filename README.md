@@ -51,8 +51,4 @@ The aim of this project: Predicting the possible outcome of a day trade by train
 	The architecture of the CNN model is as follows:
 
 - Results: 
-	============================================
-	| # categories |......|......|......|......|
-	|==============|======|======|======|======|
-	|   Accuracy   |......|......|......|......|
-	============================================
+	Currently, I have a working simple CNN model that yields an accuracy of 0.18. 
