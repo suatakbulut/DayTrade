@@ -1,6 +1,5 @@
 import numpy as np 
 import pandas as pd 
-import math 
 
 def cleaner(df):
 	'''
@@ -40,7 +39,7 @@ def calculate_return(df):
     
     Returns
     -------
-    	percentage_return (np.array): has a length of len(df)-1
+    percentage_return (np.array): has a length of len(df)-1
     
     '''	
     	
@@ -53,33 +52,29 @@ def calculate_return(df):
 #------------------------------------------------------
 
 def categorizer(df):
-	'''
-	Creates bins of length 0.5 from -3 to +3.5. 
-	Any percentage return that falls into a bin is called 
-	by the same number, that is ceil(2*return)
-	any return greater than 3.5% is assigned to 7.
-	any return smaller than -3% is assgined to -6. 
+    '''
+    Discretize the percentage return into three categories, -1, 0, 1. 
+        -1 : if the return us less than -0.5% 
+         1 : if it is greater than 0.5% 
+         0 : otherwise
+    Must be called after calculate_return() function
+    
 
-		<------|----|----|..|..|----|----|---->
-		      -3  -2.5   .. 0 ..    3   3.5
-	So, there are 14 percentage return bins. 
-		-6, -5, -4, ... , 0, ... 5, 6, 7
-	
-	Parameters
-	----------
-	df : (pandas dataframe) with a column named 'percentage_return'
-	    
-	Returns
-	-------
-	df : (pandas dataframe) that has a columns 'label'
-	     with integer vals from -6 to 7 representing 
-	     the percentage returns
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        It needs to have with a column named 'percentage_return'.
 
-	'''	
-	df.loc[df.percentage_return >= 3.5, 'percentage_return'] = 3.5 
-	df.loc[df.percentage_return <= -3, 'percentage_return'] = -3
-	
-	df['label'] = df.apply(lambda row: math.ceil(2*row.percentage_return), axis=1)
-	df.drop('percentage_return', axis=1, inplace=True)
-	
-	return df[19:]
+    Returns
+    -------
+    pandas.DataFrame
+        same df but percentage_return column is replaced with the categorized label column        
+
+    '''
+    
+    df.loc[df.percentage_return <= -0.5, 'label'] = '-1'
+    df.loc[df.percentage_return >= -0.5, 'label'] = '1'
+    df.loc[(df.percentage_return > -0.5) & (df.percentage_return < 0.5), 'label'] = '0' 
+    df.drop('percentage_return', axis=1, inplace=True)
+    
+    return df[19:]

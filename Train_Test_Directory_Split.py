@@ -1,9 +1,8 @@
-def train_test_directory_split(source_dir='images', target_dir='images_separated'):
-	import os
-	import numpy as np
-	import shutil
-
-	classes = np.arange(-6,8) 
+import os
+import numpy as np
+import shutil
+	
+def train_test_directory_split(classes, source_dir='images', target_dir='images_separated'):
 
 	for current_class in classes:
 		for sub_dir in ('train', 'validation', 'test'):

@@ -33,11 +33,11 @@ def image_creator(df, file_name, image_size=256):
                                     )])
 
   fig.add_trace(go.Scatter(x=df.index, y=df.bollingerUpper, 
-  					     line = dict(color='red', width=1)))
+  					     line = dict(color='red', width=1.5)))
   fig.add_trace(go.Scatter(x=df.index, y=df.bollingerLower, 
-  						 line = dict(color='blue', width=1)))
+  						 line = dict(color='blue', width=1.5)))
   fig.add_trace(go.Scatter(x=df.index, y=df.bollingerMA20, 
-  						 line = dict(color='black', width=1)))
+  						 line = dict(color='black', width=1.5)))
 
   fig.update_layout(xaxis_rangeslider_visible=False, 
                     autosize=False, 
@@ -51,3 +51,4 @@ def image_creator(df, file_name, image_size=256):
                     )
   label = int(df.iloc[-1].label)
   fig.write_image("images/{}/{}.png".format(label, file_name))
+  

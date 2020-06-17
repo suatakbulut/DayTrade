@@ -2,13 +2,13 @@ from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from keras.models import Sequential 
 
 cnn = Sequential()
-cnn.add(Conv2D(44, kernel_size=(5,5), input_shape=(64,64,1), padding='same', activation='relu'))
+cnn.add(Conv2D(88, kernel_size=(5,5), input_shape=(64,64,1), padding='same', activation='relu'))
 cnn.add(MaxPooling2D(pool_size=(4,4)))
 cnn.add(Conv2D(44, kernel_size=(5,5), padding='same', activation='relu'))
 cnn.add(MaxPooling2D(pool_size=(4,4)))
-cnn.add(Dropout(0.2))
+# cnn.add(Dropout(0.2))
 cnn.add(Flatten())
-cnn.add(Dense(14, activation = 'softmax')) 
+cnn.add(Dense(3, activation = 'softmax')) 
 
 cnn.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 print(cnn.summary())
@@ -31,10 +31,16 @@ validation_generator = validation_datagen.flow_from_directory(
 
 cnn.fit_generator(
         train_generator,
-        steps_per_epoch=5000,
-        epochs=10,
-        validation_data=validation_generator,
-        validation_steps=2000)
+        epochs=6,
+        validation_data=validation_generator
+        )
+
+# cnn.fit_generator(
+#         train_generator,
+#         steps_per_epoch=20,
+#         epochs=6,
+#         validation_data=validation_generator,
+#         validation_steps=7)
 
 test_datagen = ImageDataGenerator(rescale=1./255)
 test_generator = test_datagen.flow_from_directory(
