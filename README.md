@@ -3,7 +3,7 @@
 The aim of this project: Predicting the possible outcome of a day trade by training a deep learning model on the image data of historic candle stick charts with some financial indicators drawn on them 
 
 - Data Scraping: 
-	For 100 stocks listed in S&P500 index, scraped the historical price data for the last five years. 
+	For 250 stocks listed in S&P500 index, scraped the historical price data for the last five years. 
 
 - Creating .png images:
 	For ever 22 day long interval, draw the candlestick chart of the data along with some financial indicators (bollinger bands for now) on it
